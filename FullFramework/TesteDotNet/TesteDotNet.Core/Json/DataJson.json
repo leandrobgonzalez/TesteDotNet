@@ -1,0 +1,16 @@
+﻿[
+  {
+    "Categoria": "Item 1",
+    "Codigo": 1,
+    "DataItem": "07/04/2018",
+    "Descricao": "Teste1 Descrição",
+    "Nome": "Teste1"
+  },
+  {
+    "Categoria": "Item 2",
+    "Codigo": 2,
+    "DataItem": "07/04/2018",
+    "Descricao": "Teste2 Descrição",
+    "Nome": "Teste2"
+  }
+]

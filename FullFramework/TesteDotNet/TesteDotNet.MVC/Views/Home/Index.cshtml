@@ -1,0 +1,79 @@
+﻿@model IEnumerable<TesteDotNet.Core.Models.ItemModel>
+ 
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="col-md-3">
+    <h2>Itens</h2>
+</div>
+
+<div class="col-md-6 margin-top-20">
+    <div class="input-group h2">
+        <input name="data[search]" class="form-control" id="search" type="text" placeholder="Pesquisar Itens">
+        <span class="input-group-btn">
+            <button class="btn btn-primary" type="submit">
+                <span class="glyphicon glyphicon-search"></span>
+            </button>
+        </span>
+    </div>
+</div>
+
+<div class="col-md-3 margin-top-20">
+    <a href="/Home/Cadastro" class="btn btn-primary pull-right h2">Novo Item</a>
+</div>
+
+<div id="list" class="row margin-top-100">
+    <div class="table-responsive col-md-12">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Cod.</th>
+                    <th>Nome</th>
+                    <th>Categoria</th>
+                    <th>Data de Criação</th>
+                    <th class="actions">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(m => item.Codigo)</td>
+                            <td>@Html.DisplayFor(m => item.Nome)</td>
+                            <td>@Html.DisplayFor(m => item.Categoria)</td>
+                            <td>@Html.DisplayFor(m => item.DataItem)</td>
+                            <td class="actions">
+                                <a class="btn btn-success btn-xs" href="/Home/Detalhe/@item.Codigo">Visualizar</a>
+                                <a class="btn btn-warning btn-xs" href="/Home/Cadastro/@item.Codigo">Editar</a>
+                                <button type="button" class="btn btn-danger btn-xs" name="btnExcluir" id="btnExcluir" itemid="@item.Codigo" onclick="fExcluir(@item.Codigo)">Excluir</button>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+@section Scripts {
+    <script type="text/javascript">
+
+        function fExcluir(id){
+            if (confirm("Atenção! Tem certeza que gostaria de excluir este registro?")) {
+                $.ajax({
+                    method: "post",
+                    url: "/home/excluir/" + id,
+                    success: function (data) {
+                        alert("Exclusão efetuada com sucesso.");
+                        location.href = "/home/index";
+                    },
+                    error: function (data) {
+                        alert("Houve um erro na pesquisa.");
+                    }
+                });
+            }
+        }
+    </script>
+}

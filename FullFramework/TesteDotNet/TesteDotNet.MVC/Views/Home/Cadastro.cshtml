@@ -1,0 +1,59 @@
+﻿@model TesteDotNet.Core.Models.ItemModel
+
+@{
+    ViewBag.Title = "Cadastro";
+}
+
+<h3 class="page-header">Adicionar Item</h3>
+
+@using (Html.BeginForm("Gravar", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="row">
+
+        @if (Model != null)
+        {
+            if (Model.Codigo.HasValue == true)
+            {
+                <div class="form-group col-md-8">
+                    <label>Código:</label>
+                    @Html.TextBoxFor(m => m.Codigo, new { @class = "form-control", @readonly = "true" })
+                </div>
+            }
+        }
+
+        <div class="form-group col-md-8">
+            <label>Nome:</label>
+            @Html.TextBoxFor(m => m.Nome, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group col-md-8">
+            <label>Descrição:</label>
+            @Html.TextBoxFor(m => m.Descricao, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group col-md-6">
+            <label>Categoria:</label>
+            @Html.DropDownListFor(model => model.Categoria, new SelectList(
+                                                            new List<Object>{
+                                                                new { value = "0" , text = "Selecione" },
+                                                                new { value = "Item 1" , text = "Item 1" },
+                                                                new { value = "Item 2" , text = "Item 2" },
+                                                                new { value = "Item 3" , text = "Item 3" },
+                                                                new { value = "Item 4" , text = "Item 4" }
+                                                            }, 
+                                                            "value", 
+                                                            "text", 
+                                                            "0"), 
+                                                            new { @class = "form-control" }
+                                  )
+        </div>
+    </div>
+
+    <hr />
+    <div id="actions" class="row">
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-primary">Salvar</button>
+            <a href="/Home/Index" class="btn btn-default">Cancelar</a>
+        </div>
+    </div>
+}
